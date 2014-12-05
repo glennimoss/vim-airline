@@ -7,6 +7,8 @@ function! airline#themes#solarized#refresh()
   let s:background  = get(g:, 'airline_solarized_bg', &background)
   let s:ansi_colors = get(g:, 'solarized_termcolors', 16) != 256 && &t_Co >= 16 ? 1 : 0
   let s:tty         = &t_Co == 8
+  let s:boldness    = get(g:, 'solarized_bold', 1) ? 'bold' : ''
+  let s:italicness  = get(g:, 'solarized_italic', 1) ? 'italic' : ''
 
   """"""""""""""""""""""""""""""""""""""""""""""""
   " Colors
@@ -36,11 +38,11 @@ function! airline#themes#solarized#refresh()
   """"""""""""""""""""""""""""""""""""""""""""""""
   " Normal mode
   if s:background == 'dark'
-    let s:N1 = [s:base3, s:base1, 'bold']
+    let s:N1 = [s:base3, s:base1, s:boldness]
     let s:N2 = [s:base2, (s:tty ? s:base01 : s:base00), '']
     let s:N3 = [s:base01, s:base02, '']
   else
-    let s:N1 = [s:base2, s:base00, 'bold']
+    let s:N1 = [s:base2, s:base00, s:boldness]
     let s:N2 = [(s:tty ? s:base01 : s:base2), s:base1, '']
     let s:N3 = [s:base1, s:base2, '']
   endif
@@ -55,14 +57,14 @@ function! airline#themes#solarized#refresh()
   endif
 
   " Insert mode
-  let s:I1 = [s:N1[0], s:yellow, 'bold']
+  let s:I1 = [s:N1[0], s:yellow, s:boldness]
   let s:I2 = s:N2
   let s:I3 = s:N3
   let s:IF = s:NF
   let s:IM = s:NM
 
   " Visual mode
-  let s:V1 = [s:N1[0], s:magenta, 'bold']
+  let s:V1 = [s:N1[0], s:magenta, s:boldness]
   let s:V2 = s:N2
   let s:V3 = s:N3
   let s:VF = s:NF
@@ -94,6 +96,8 @@ function! airline#themes#solarized#refresh()
 
   let g:airline#themes#solarized#palette.accents = {
         \ 'red': s:NFa,
+        \ 'bold': [ '', '', '', '', s:boldness ],
+        \ 'italic': [ '', '', '', '', s:italicness ]
         \ }
 
   let g:airline#themes#solarized#palette.inactive = airline#themes#generate_color_map(
