@@ -42,8 +42,13 @@ function! airline#themes#patch(palette)
   endfor
 
   let a:palette.accents = get(a:palette, 'accents', {})
-  let a:palette.accents.bold = [ '', '', '', '', 'bold' ]
-  let a:palette.accents.italic = [ '', '', '', '', 'italic' ]
+
+  if !has_key(a:palette.accents, 'bold')
+    let a:palette.accents.bold = [ '', '', '', '', 'bold' ]
+  endif
+  if !has_key(a:palette.accents, 'italic')
+    let a:palette.accents.italic = [ '', '', '', '', 'italic' ]
+  endif
 
   if !has_key(a:palette.accents, 'red')
     let a:palette.accents.red = [ '#ff0000' , '' , 160 , '' ]
